@@ -173,7 +173,7 @@ var ycomments = (function() {
   }
 }())
 
-function onLoad() {
+function onLoadYcomments() {
   // let thisUrl = 'http://www.youtube.com/watch?v=oVfHeWTKjag'; 
   let thisUrl = window.location.href; 
   ycomments.getHnCommentsNode(thisUrl)
@@ -309,4 +309,4 @@ html, body {
     .catch((err) => console.error(err))
 }
 
-window.addEventListener('load', onLoad)
+window.addEventListener('load', onLoadYcomments)

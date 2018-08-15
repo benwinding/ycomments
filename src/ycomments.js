@@ -43,21 +43,27 @@ var ycomments = (function() {
       }
       let allhits = data["hits"];
       let num_of_comments = 0;
-      let result_id = null;
+      let hitMatch
       for (let hit of allhits) {
         if (isMatchTwoUrls(hit["url"], initurl) && hit["num_comments"] >= num_of_comments) {
           num_of_comments = hit["num_comments"];
-          result_id = hit["objectID"];
+          hitMatch = hit;
         }
       }
-      if (result_id == null) {
+      if (hitMatch == null)
         return Promise.reject('Hacker News API: No url matches found');
-      }
+
+      result_id = hitMatch["objectID"];
+      result_title = hitMatch["title"];
+      result_author = hitMatch["author"];
+
       const linkUrl = `https://news.ycombinator.com/item?id=${result_id}`
       return {
         id: result_id,
         link: linkUrl,
-        comments: num_of_comments
+        comments: num_of_comments,
+        title: result_title,
+        author: result_author,
       }
     }
 
@@ -108,7 +114,7 @@ var ycomments = (function() {
         <div class="ycomments-meta">
           <a class="ycomments-author" href="${authorLink}" target="_blank">${author}</a>
           <span>${dateString}</span>
-          <a class="ycomments-toggle" onclick="onClickToggle(this)" >[+]</a>
+          <a class="ycomments-toggle" onclick="onClickToggle(this)" >[-]</a>
         </div>
         <div class="ycomments-text">${commentText}</div>
       </div>
@@ -130,16 +136,16 @@ var ycomments = (function() {
 
     function onClickToggle(e) {
       const commentDiv = e.parentElement.parentElement.parentElement
-      if (e.innerText == '[+]') {
+      if (e.innerText == '[-]') {
         commentDiv.style.height = '10px'
-        e.innerText = '[-]'        
+        e.innerText = '[+]'        
       }
       else {
         commentDiv.style.height = 'unset'
-        e.innerText = '[+]'
+        e.innerText = '[-]'
       }
     };
-    
+
     const scriptString = `<script>${onClickToggle.toString()}</script>`
     commentsRootDiv.insertAdjacentHTML('beforeend', scriptString)
     return commentsRootDiv;
@@ -147,10 +153,18 @@ var ycomments = (function() {
 
   function getHnCommentsNode() {
     let thisUrl = 'http://www.youtube.com/watch?v=oVfHeWTKjag'; //window.location.href;
+    let resultJson;
     return fetchHn(thisUrl)
-      .then((result) => fetchHnComments(result.id))
+      .then((result) => { 
+        resultJson = result;
+        return fetchHnComments(result.id)
+      })
       .then((comments) => {
-        return makeCommentsNode(comments)
+        const node = makeCommentsNode(comments);
+        return {
+          'node': node,
+          'results': resultJson
+        }
       })
       .catch((err) => console.error(err))
   }
@@ -164,21 +178,118 @@ function onLoad() {
   let thisUrl = 'http://www.youtube.com/watch?v=oVfHeWTKjag'; //window.location.href; 
    
   ycomments.getHnCommentsNode(thisUrl)
-    .then((commentsNode) => {
+    .then((comments) => {
       let iframe = document.createElement('iframe');
 
       function onIframeLoaded() {
         var doc = iframe.contentWindow.document;
         doc.open();
         // write comments, creates html structure
-        doc.write(commentsNode.outerHTML);
+        doc.write(comments.node.outerHTML);
         // add stylesheet to iframe head
-        var cssLink = document.createElement("link");
-        cssLink.href = "ycomments.css"; 
-        cssLink.rel = "stylesheet"; 
-        cssLink.type = "text/css"; 
-        doc.head.appendChild(cssLink)
+        var cssTag = document.createElement("style");
+        cssTag.innerText = `
+html, body {
+  left: 0px;
+  right: 0px;
+  margin-left: 0px;
+  width: 100% !important;
+  display: block !important;
+  background-color: #f6f6ef;
+  font-family: Verdana, Geneva, sans-serif;
+}
 
+.ycomments-root {
+  width: 100%;
+  margin-left: -10px;
+}
+
+.ycomments-header {
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.ycomments-header h1 a,
+.ycomments-header h1 {
+  font-size: 12pt;
+  color: black;
+  margin-bottom: 6px;
+}
+
+.ycomments-header h1 a:visited {
+  color: grey;
+}
+
+.ycomments-header p a,
+.ycomments-header p {
+  font-size: 10pt;
+  color: grey;
+  padding: 0;
+  margin-top: 0;
+  margin-right: 6px;
+}
+
+.ycomments-child {
+  margin-left: 10px;
+  padding: 10px;
+  padding-top: 5px;
+  right: 0px;
+  left: 0px;
+  position: relative;
+  font-size: 9pt;
+}
+
+.ycomments-content {
+  margin-bottom: -10px;
+}
+
+.ycomments-content a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.ycomments-meta, .ycomments-author {
+  color: grey;
+}
+
+.ycomments-author {
+  margin-right: 7px;
+}
+
+.ycomments-child p {
+  margin-top: 5px;
+}
+
+.ycomments-child pre {
+  color: black;
+  overflow-x: scroll;
+  background-color: #f7f7f7;
+}
+        
+        `
+        doc.head.appendChild(cssTag)
+
+        // var cssLink = document.createElement("link");
+        // cssLink.href = "ycomments.css"; 
+        // cssLink.rel = "stylesheet"; 
+        // cssLink.type = "text/css"; 
+        // doc.head.appendChild(cssLink)
+        let author = comments.results.author;
+        let authorLink = "https://news.ycombinator.com/user?id="+author;
+        let title = comments.results.title;
+        let id = comments.results.id;
+        let titleLink = "https://news.ycombinator.com/item?id="+id;
+
+        const headerHtml = `
+          <div class="ycomments-header">
+            <h1><a href="${titleLink}" target="_blank">${title}</a></h1>
+            <p>by <a href="${authorLink}" target="_blank">${author}</a>
+            <a href="${titleLink}" target="_blank">10 comments</a>
+            </p>
+          </div>
+        `;
+        doc.body.insertAdjacentHTML('afterbegin', headerHtml)
         iframe.style.height = doc.body.scrollHeight + 'px';
 
         doc.close();

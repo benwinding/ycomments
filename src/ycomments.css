@@ -1,24 +1,51 @@
 html, body {
   left: 0px;
   right: 0px;
+  margin-left: 0px;
+  width: 100% !important;
+  display: block !important;
+  background-color: #f6f6ef;
+  font-family: Verdana, Geneva, sans-serif;
 }
 
 .ycomments-root {
+  width: 100%;
   margin-left: -10px;
-  width: 100% !important;
-  display: block !important;
+}
+
+.ycomments-header {
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.ycomments-header h1 a,
+.ycomments-header h1 {
+  font-size: 12pt;
+  color: black;
+  margin-bottom: 6px;
+}
+
+.ycomments-header h1 a:visited {
+  color: grey;
+}
+
+.ycomments-header p a,
+.ycomments-header p {
+  font-size: 10pt;
+  color: grey;
+  padding: 0;
+  margin-top: 0;
+  margin-right: 6px;
 }
 
 .ycomments-child {
-  margin-left: 20px;
+  margin-left: 10px;
   padding: 10px;
   padding-top: 5px;
-  background-color: #f6f6ef;
   right: 0px;
   left: 0px;
   position: relative;
-
-  font-family: Verdana, Geneva, sans-serif;
   font-size: 9pt;
 }
 
@@ -28,6 +55,7 @@ html, body {
 
 .ycomments-content a:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .ycomments-meta, .ycomments-author {

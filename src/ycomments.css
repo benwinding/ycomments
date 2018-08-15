@@ -1,0 +1,49 @@
+html, body {
+  left: 0px;
+  right: 0px;
+}
+
+.ycomments-root {
+  margin-left: -10px;
+  width: 100% !important;
+  display: block !important;
+}
+
+.ycomments-child {
+  margin-left: 20px;
+  padding: 10px;
+  padding-top: 5px;
+  background-color: #f6f6ef;
+  right: 0px;
+  left: 0px;
+  position: relative;
+
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 9pt;
+}
+
+.ycomments-content {
+  margin-bottom: -10px;
+}
+
+.ycomments-content a:hover {
+  text-decoration: underline;
+}
+
+.ycomments-meta, .ycomments-author {
+  color: grey;
+}
+
+.ycomments-author {
+  margin-right: 7px;
+}
+
+.ycomments-child p {
+  margin-top: 5px;
+}
+
+.ycomments-child pre {
+  color: black;
+  overflow-x: scroll;
+  background-color: #f7f7f7;
+}

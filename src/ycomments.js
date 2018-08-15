@@ -151,8 +151,7 @@ var ycomments = (function() {
     return commentsRootDiv;
   }
 
-  function getHnCommentsNode() {
-    let thisUrl = 'http://www.youtube.com/watch?v=oVfHeWTKjag'; //window.location.href;
+  function getHnCommentsNode(thisUrl) {
     let resultJson;
     return fetchHn(thisUrl)
       .then((result) => { 
@@ -175,8 +174,8 @@ var ycomments = (function() {
 }())
 
 function onLoad() {
-  let thisUrl = 'http://www.youtube.com/watch?v=oVfHeWTKjag'; //window.location.href; 
-   
+  // let thisUrl = 'http://www.youtube.com/watch?v=oVfHeWTKjag'; 
+  let thisUrl = window.location.href; 
   ycomments.getHnCommentsNode(thisUrl)
     .then((comments) => {
       let iframe = document.createElement('iframe');
@@ -266,7 +265,7 @@ html, body {
   overflow-x: scroll;
   background-color: #f7f7f7;
 }
-        
+
         `
         doc.head.appendChild(cssTag)
 
@@ -290,15 +289,19 @@ html, body {
           </div>
         `;
         doc.body.insertAdjacentHTML('afterbegin', headerHtml)
-        iframe.style.height = doc.body.scrollHeight + 'px';
-
         doc.close();
+
+        iframe.style.WebkitTransition = 'opacity 1s';
+        iframe.style.MozTransition = 'opacity 1s';
+        iframe.style.height = doc.body.scrollHeight + 'px';
+        iframe.style.opacity = '1';
       }
+      iframe.style.opacity = '0';
       iframe.setAttribute('name', 'ycomments');
       iframe.setAttribute('width', '100%');
       iframe.setAttribute('frameBorder', '0');
       iframe.setAttribute('scrolling', 'no');
-      iframe.addEventListener('load', onIframeLoaded);     
+      iframe.addEventListener('load', onIframeLoaded);
 
       let ycommentsRoot = document.querySelector('[from="hn"]');
       ycommentsRoot.appendChild(iframe)

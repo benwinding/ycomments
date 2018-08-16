@@ -2,7 +2,9 @@
   "name": "YComments",
   "scripts": {
     "build": "webpack",
+    "build-prod": "NODE_ENV=production webpack",
     "watch": "webpack -w",
+    "watch-prod": "NODE_ENV=production webpack -w",
     "clean": "rm -rf dist"
   },
   "dependencies": {

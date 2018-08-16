@@ -1,5 +1,5 @@
 function makeThread(comment, parentDiv) {
-// Create the comment structure
+  // Create the comment structure
 
   let commentDiv = document.createElement('div');
   commentDiv.setAttribute('class', 'ycomments-child')
@@ -7,7 +7,7 @@ function makeThread(comment, parentDiv) {
   let dateString = date.toLocaleDateString() + ' - ' + date.toLocaleTimeString();
   let commentText = comment.text.trim();
   let author = comment.author;
-  let authorLink = "https://news.ycombinator.com/user?id="+author;
+  let authorLink = "https://news.ycombinator.com/user?id=" + author;
 
   const commentHtml = `
     <div class="ycomments-content">
@@ -20,7 +20,7 @@ function makeThread(comment, parentDiv) {
     </div>
   `;
   commentDiv.insertAdjacentHTML('beforeend', commentHtml);
-// Add to parentDiv
+  // Add to parentDiv
   parentDiv.appendChild(commentDiv);
   for (const childComment of comment.children) {
     makeThread(childComment, commentDiv)
@@ -35,14 +35,13 @@ function makeCommentsNode(comments) {
   }
 
   function onClickToggle(e) {
-    const commentDiv = e.parentElement.parentElement.parentElement
+    const commentDiv = e.parentElement.parentElement.parentElement;
     if (e.innerText == '[-]') {
-      commentDiv.style.height = '10px'
-      e.innerText = '[+]'        
-    }
-    else {
-      commentDiv.style.height = 'unset'
-      e.innerText = '[-]'
+      commentDiv.style.height = '10px';
+      e.innerText = '[+]';
+    } else {
+      commentDiv.style.height = 'unset';
+      e.innerText = '[-]';
     }
   };
 
@@ -53,8 +52,18 @@ function makeCommentsNode(comments) {
 
 const cssTxt = require('./main.css')
 function getCssStyleElement() {
-  const tag = document.createElement('style');
-  tag.innerHTML = cssTxt;
+  const isDev = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production'
+  console.log('isDev:' + isDev)
+  let tag;
+  if (isDev) {
+    tag = document.createElement('link');
+    tag.href = './dist/main.css';
+    tag.rel = "stylesheet"; 
+    tag.type = "text/css"; 
+  } else {
+    tag = document.createElement('style');
+    tag.innerHTML = cssTxt;
+  }
   return tag;
 }
 
@@ -74,10 +83,10 @@ function makeIframe(itemObj) {
 
     // doc.head.appendChild(cssLink)
     let author = meta.author;
-    let authorLink = "https://news.ycombinator.com/user?id="+author;
+    let authorLink = "https://news.ycombinator.com/user?id=" + author;
     let title = meta.title;
     let id = meta.id;
-    let titleLink = "https://news.ycombinator.com/item?id="+id;
+    let titleLink = "https://news.ycombinator.com/item?id=" + id;
 
     const headerHtml = `
       <div class="ycomments-header">

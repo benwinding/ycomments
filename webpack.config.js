@@ -1,9 +1,7 @@
 const LiveReloadPlugin = require('webpack-livereload-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-// const RawLoaderPlugin = require("raw-loader");
 
 const devMode = process.env.NODE_ENV !== 'production'
-
 console.log("devMode:", devMode)
 
 
@@ -15,10 +13,20 @@ module.exports = {
   devtool: devMode ? 'source-map' : false,
   plugins: [
     new LiveReloadPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    })    
   ],
   module: {
     rules: [
-      {
+      devMode ? {
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+        ],
+      } : {
         test: /\.css$/,
         use: 'raw-loader'
       }

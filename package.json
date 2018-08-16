@@ -1,12 +1,16 @@
 {
   "name": "YComments",
   "scripts": {
-    "build": "gulp build"
+    "build": "webpack",
+    "watch": "webpack -w",
+    "clean": "rm -rf dist"
   },
   "dependencies": {
-    "del": "^3.0.0",
-    "gulp": "^3.9.1",
-    "gulp-minify": "^3.1.0",
-    "gulp-sequence": "^1.0.0"
+    "css-loader": "^1.0.0",
+    "mini-css-extract-plugin": "^0.4.1",
+    "style-loader": "^0.22.1",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0",
+    "webpack-livereload-plugin": "^2.1.1"
   }
 }

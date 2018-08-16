@@ -90,9 +90,9 @@ function makeIframe(itemObj) {
 
     const headerHtml = `
       <div class="ycomments-header">
-        <h1><a href="${titleLink}" target="_blank">${title}</a></h1>
+        <h1>Source: <a href="${titleLink}" target="_blank">[&#x2197;] ${title}</a></h1>
         <p>by <a href="${authorLink}" target="_blank">${author}</a>
-        <a href="${titleLink}" target="_blank">10 comments</a>
+        <a href="${titleLink}" target="_blank">${itemObj.comments.length} comments</a>
         </p>
       </div>
     `;

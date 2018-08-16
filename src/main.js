@@ -22,12 +22,26 @@ function addIframeToPage(commentsObj) {
   ycommentsRoot.appendChild(iframe);
 }
 
+
+function getCommentObj() {
+  const cssTxt = require('./sample.json')
+  const isDev = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production'
+
+  if (isDev) {
+    return Promise.resolve(cssTxt);
+  }
+  else {
+    return getItemId(itemValue)
+      .then((commentsId) => apis.fetchHnComments(commentsId))
+  }
+
+}
+
 function onPageLoad() {
   let ycommentsRoot = document.querySelector('div[comments]');
   let itemValue = ycommentsRoot.getAttribute('comments');
 
-  getItemId(itemValue)
-    .then((commentsId) => apis.fetchHnComments(commentsId))
+  getCommentObj()
     .then((commentsObj) => addIframeToPage(commentsObj))
     .catch((err) => console.error(err))
 }

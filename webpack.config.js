@@ -27,7 +27,7 @@ module.exports = {
           'css-loader',
         ],
       } : {
-        test: /\.css$/,
+        test: /\.(css|json)$/,
         use: 'raw-loader'
       }
     ]

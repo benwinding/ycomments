@@ -1,4 +1,4 @@
-html, body {
+ html, body {
   left: 0px;
   right: 0px;
   margin-left: 0px;
@@ -6,6 +6,8 @@ html, body {
   display: block !important;
   background-color: #f6f6ef;
   font-family: Verdana, Geneva, sans-serif;
+  height: fit-content;
+  overflow-x: hidden;
 }
 
 .ycomments-root {
@@ -13,10 +15,17 @@ html, body {
   margin-left: -10px;
 }
 
+div.error #title,
+div.error #title a {
+  color: grey;
+  padding-top: 0px;
+}
+
 .ycomments-header {
   width: 100%;
   padding-left: 10px;
   padding-right: 10px;
+  padding-bottom: 10px;
 }
 
 .ycomments-header .icon svg {
@@ -28,13 +37,15 @@ html, body {
 .ycomments-header div {
   width: fit-content;
   display: inline-block;
+  vertical-align: top;
 }
 
 .ycomments-header #title a,
 .ycomments-header #title {
   font-size: 12pt;
   color: black;
-  margin-bottom: 6px;
+  margin-bottom: 2px;
+  margin-top: 0px;
 }
 
 .ycomments-header #title a:visited {
@@ -48,6 +59,7 @@ html, body {
   padding: 0;
   margin-top: 0;
   margin-right: 6px;
+  margin-bottom: 0;
 }
 
 .ycomments-child {
@@ -59,6 +71,7 @@ html, body {
   position: relative;
   font-size: 9pt;
   overflow: hidden;
+  padding-bottom: 0px;
 }
 
 .ycomments-content {

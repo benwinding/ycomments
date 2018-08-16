@@ -22,9 +22,9 @@ const rulesProd = [
   {
     test: /\.(css|json|svg)$/,
     use: 'raw-loader'
-  // },{
-  //   test: /\.(json)$/,
-  //   loader: 'ignore-loader'
+  },{
+    test: /\.(json)$/,
+    loader: 'ignore-loader'
   }
 ]
 

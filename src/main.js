@@ -23,11 +23,11 @@ function addIframeToPage(commentsObj) {
 }
 
 
-const cssTxt = require('./sample.json')
 function getCommentObj() {
   const isDev = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production'
 
   if (isDev) {
+    const cssTxt = require('./sample.json')
     return Promise.resolve(cssTxt);
   }
   else {

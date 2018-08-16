@@ -52,14 +52,9 @@ function makeCommentsNode(comments) {
 }
 
 function getHnCommentsNode(thisUrl) {
-  let resultJson;
-  return fetchHn(thisUrl)
-    .then((result) => { 
-      resultJson = result;
-      return fetchHnComments(result.id)
-    })
+  return fetchHnComments(result.id)
     .then((comments) => {
-      const node = makeCommentsNode(comments);
+      
       return {
         'node': node,
         'results': resultJson
@@ -68,22 +63,25 @@ function getHnCommentsNode(thisUrl) {
     .catch((err) => console.error(err))
 }
 
-function makeIframe(comments) {
+function makeIframe(itemObj) {
+  const comments = itemObj.comments;
+  const meta = itemObj.meta;
   let iframe = document.createElement('iframe');
 
   function onIframeLoaded() {
     var doc = iframe.contentWindow.document;
     doc.open();
+    const node = makeCommentsNode(comments);
     // write comments, creates html structure
-    doc.write(comments.node.outerHTML);
+    doc.write(node.outerHTML);
     // add stylesheet to iframe head
-    doc.head.appendChild(getCssTagDev())
+//     doc.head.appendChild(getCssTagDev())
 
     // doc.head.appendChild(cssLink)
-    let author = comments.results.author;
+    let author = meta.author;
     let authorLink = "https://news.ycombinator.com/user?id="+author;
-    let title = comments.results.title;
-    let id = comments.results.id;
+    let title = meta.title;
+    let id = meta.id;
     let titleLink = "https://news.ycombinator.com/item?id="+id;
 
     const headerHtml = `
@@ -109,8 +107,10 @@ function makeIframe(comments) {
   iframe.setAttribute('frameBorder', '0');
   iframe.setAttribute('scrolling', 'no');
   iframe.addEventListener('load', onIframeLoaded);
+  return iframe;
 }
 
 module.exports = {
-  makeIframe: makeIframe
+  makeIframe: makeIframe,
+  getHnCommentsNode: getHnCommentsNode
 }

@@ -94,7 +94,16 @@ function fetchHnComments(commentsId) {
   return getUrlJson(apiUrl)
     .then((data) => {
       const sorted = data.children.sort(sortComments);
-      return sorted;
+      return {
+        meta: {
+          id: data.id,
+          title: data.title,
+          author: data.author,
+          created_at: data.created_at,
+          url: data.url
+        },
+        comments: sorted
+      };
     })
 }
 

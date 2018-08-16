@@ -8,7 +8,7 @@ console.log("devMode:", devMode)
 module.exports = {
   entry: './src/main.js',
   output: {
-    filename: './bundle.js'
+    filename: './ycomments.min.js'
   },
   devtool: devMode ? 'source-map' : false,
   plugins: [

@@ -39,7 +39,7 @@ function checkHnForUrl(urlString) {
 
   function processJsonResponse(data) {
     if (data["nbHits"] == 0) {
-      return Promise.reject('Hacker News API: No urls found');
+      return Promise.reject('Hacker News API: No posts found matching url:'+urlString);
     }
     let allhits = data["hits"];
     let num_of_comments = 0;
@@ -51,7 +51,7 @@ function checkHnForUrl(urlString) {
       }
     }
     if (hitMatch == null)
-      return Promise.reject('Hacker News API: No url matches found');
+      return Promise.reject('Hacker News API: No url found matching:'+urlString);
 
     result_id = hitMatch["objectID"];
     result_title = hitMatch["title"];

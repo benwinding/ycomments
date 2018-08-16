@@ -4,8 +4,8 @@ const builder = require('./comment-builder.js');
 
 function getItemId(itemValue) {
   if (itemValue == 'auto') {
-    // let thisUrl = window.location.href;
-    let thisUrl = 'http://www.youtube.com/watch?v=oVfHeWTKjag';
+    let thisUrl = window.location.href;
+//     let thisUrl = 'http://www.youtube.com/watch?v=oVfHeWTKjag';
     return apis.checkHnForUrl(thisUrl)
       .then((res) => {
         return res.id;
@@ -22,11 +22,10 @@ function addIframeToPage(commentsObj) {
   ycommentsRoot.appendChild(iframe);
 }
 
-
-function getCommentObj() {
+function getCommentObj(itemValue) {
   const isDev = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production'
 
-  if (isDev) {
+  if (!isDev) {
     const cssTxt = require('./sample.json')
     return Promise.resolve(cssTxt);
   }
@@ -41,7 +40,7 @@ function onPageLoad() {
   let ycommentsRoot = document.querySelector('div[comments]');
   let itemValue = ycommentsRoot.getAttribute('comments');
 
-  getCommentObj()
+  getCommentObj(itemValue)
     .then((commentsObj) => addIframeToPage(commentsObj))
     .catch((err) => console.error(err))
 }

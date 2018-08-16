@@ -51,16 +51,11 @@ function makeCommentsNode(comments) {
   return commentsRootDiv;
 }
 
-function getHnCommentsNode(thisUrl) {
-  return fetchHnComments(result.id)
-    .then((comments) => {
-      
-      return {
-        'node': node,
-        'results': resultJson
-      }
-    })
-    .catch((err) => console.error(err))
+const cssTxt = require('./main.css')
+function getCssStyleElement() {
+  const tag = document.createElement('style');
+  tag.innerHTML = cssTxt;
+  return tag;
 }
 
 function makeIframe(itemObj) {
@@ -75,7 +70,7 @@ function makeIframe(itemObj) {
     // write comments, creates html structure
     doc.write(node.outerHTML);
     // add stylesheet to iframe head
-//     doc.head.appendChild(getCssTagDev())
+    doc.head.appendChild(getCssStyleElement())
 
     // doc.head.appendChild(cssLink)
     let author = meta.author;
@@ -111,6 +106,5 @@ function makeIframe(itemObj) {
 }
 
 module.exports = {
-  makeIframe: makeIframe,
-  getHnCommentsNode: getHnCommentsNode
+  makeIframe: makeIframe
 }

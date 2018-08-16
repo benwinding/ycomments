@@ -1,4 +1,5 @@
 var ycomments = (function() {
+  // API stuff
   function getUrlJson(url) {
     return new Promise((resolve, reject) => {
       var xmlhttp = new XMLHttpRequest();
@@ -89,8 +90,8 @@ var ycomments = (function() {
     return 0;
   }
 
-  function fetchHnComments(postId) {
-    const apiUrl = `https://hn.algolia.com/api/v1/items/${postId}`
+  function fetchHnComments(commentsId) {
+    const apiUrl = `https://hn.algolia.com/api/v1/items/${commentsId}`
     return getUrlJson(apiUrl)
       .then((data) => {
         const sorted = data.children.sort(sortComments);
@@ -98,6 +99,7 @@ var ycomments = (function() {
       })
   }
 
+  // HTML generation Stuff
   function makeThread(comment, parentDiv) {
 // Create the comment structure
 
@@ -169,25 +171,13 @@ var ycomments = (function() {
   }
 
   return {
-    getHnCommentsNode: getHnCommentsNode
+    getHnCommentsNode: getHnCommentsNode,
+    fetchHn: fetchHn
   }
 }())
 
-function onLoadYcomments() {
-  // let thisUrl = 'http://www.youtube.com/watch?v=oVfHeWTKjag'; 
-  let thisUrl = window.location.href; 
-  ycomments.getHnCommentsNode(thisUrl)
-    .then((comments) => {
-      let iframe = document.createElement('iframe');
-
-      function onIframeLoaded() {
-        var doc = iframe.contentWindow.document;
-        doc.open();
-        // write comments, creates html structure
-        doc.write(comments.node.outerHTML);
-        // add stylesheet to iframe head
-        var cssTag = document.createElement("style");
-        cssTag.innerText = `
+function getCssString() {
+  return `
 html, body {
   left: 0px;
   right: 0px;
@@ -265,46 +255,89 @@ html, body {
   overflow-x: scroll;
   background-color: #f7f7f7;
 }
+`
+}
 
-        `
-        doc.head.appendChild(cssTag)
+function getCssTagProd() {
+  var cssTag = document.createElement("style");
+  cssTag.innerText = getCssString();
+  return cssTag;
+}
 
-        // var cssLink = document.createElement("link");
-        // cssLink.href = "ycomments.css"; 
-        // cssLink.rel = "stylesheet"; 
-        // cssLink.type = "text/css"; 
-        // doc.head.appendChild(cssLink)
-        let author = comments.results.author;
-        let authorLink = "https://news.ycombinator.com/user?id="+author;
-        let title = comments.results.title;
-        let id = comments.results.id;
-        let titleLink = "https://news.ycombinator.com/item?id="+id;
+function getCssTagDev() {
+  var cssLink = document.createElement("link");
+  cssLink.href = "ycomments.css"; 
+  cssLink.rel = "stylesheet"; 
+  cssLink.type = "text/css"; 
+  return cssLink;
+}
 
-        const headerHtml = `
-          <div class="ycomments-header">
-            <h1><a href="${titleLink}" target="_blank">${title}</a></h1>
-            <p>by <a href="${authorLink}" target="_blank">${author}</a>
-            <a href="${titleLink}" target="_blank">10 comments</a>
-            </p>
-          </div>
-        `;
-        doc.body.insertAdjacentHTML('afterbegin', headerHtml)
-        doc.close();
+function makeIframe(comments) {
+  let iframe = document.createElement('iframe');
 
-        iframe.style.WebkitTransition = 'opacity 1s';
-        iframe.style.MozTransition = 'opacity 1s';
-        iframe.style.height = doc.body.scrollHeight + 'px';
-        iframe.style.opacity = '1';
-      }
-      iframe.style.opacity = '0';
-      iframe.setAttribute('name', 'ycomments');
-      iframe.setAttribute('width', '100%');
-      iframe.setAttribute('frameBorder', '0');
-      iframe.setAttribute('scrolling', 'no');
-      iframe.addEventListener('load', onIframeLoaded);
+  function onIframeLoaded() {
+    var doc = iframe.contentWindow.document;
+    doc.open();
+    // write comments, creates html structure
+    doc.write(comments.node.outerHTML);
+    // add stylesheet to iframe head
+    doc.head.appendChild(getCssTagDev())
 
-      let ycommentsRoot = document.querySelector('[from="hn"]');
-      ycommentsRoot.appendChild(iframe)
+    // doc.head.appendChild(cssLink)
+    let author = comments.results.author;
+    let authorLink = "https://news.ycombinator.com/user?id="+author;
+    let title = comments.results.title;
+    let id = comments.results.id;
+    let titleLink = "https://news.ycombinator.com/item?id="+id;
+
+    const headerHtml = `
+      <div class="ycomments-header">
+        <h1><a href="${titleLink}" target="_blank">${title}</a></h1>
+        <p>by <a href="${authorLink}" target="_blank">${author}</a>
+        <a href="${titleLink}" target="_blank">10 comments</a>
+        </p>
+      </div>
+    `;
+    doc.body.insertAdjacentHTML('afterbegin', headerHtml)
+    doc.close();
+
+    iframe.style.WebkitTransition = 'opacity 1s';
+    iframe.style.MozTransition = 'opacity 1s';
+    iframe.style.height = doc.body.scrollHeight + 'px';
+    iframe.style.opacity = '1';
+  }
+
+  iframe.style.opacity = '0';
+  iframe.setAttribute('name', 'ycomments');
+  iframe.setAttribute('width', '100%');
+  iframe.setAttribute('frameBorder', '0');
+  iframe.setAttribute('scrolling', 'no');
+  iframe.addEventListener('load', onIframeLoaded);
+}
+
+function onLoadYcomments() {
+  let ycommentsRoot = document.querySelector('div[comments]');
+  let itemValue = ycommentsRoot.getAttribute('comments');
+  let getIdPromise;  
+  if (itemValue == 'auto') {
+    // let thisUrl = window.location.href; 
+    let thisUrl = 'http://www.youtube.com/watch?v=oVfHeWTKjag'; 
+    getIdPromise = function () { 
+      return ycomments.fetchHn(thisUrl)
+        .then((res) => {return res.id})
+    }
+  }
+  else  { 
+    getIdPromise = function () {
+      return Promise.resolve(itemValue);
+    }
+  }
+
+  getIdPromise()
+    .then((commentsId) => ycomments.getHnCommentsNode(thisUrl))
+    .then((comments) => {
+      let iframe = makeIframe(comments);
+      ycommentsRoot.appendChild(iframe);
     })
     .catch((err) => console.error(err))
 }

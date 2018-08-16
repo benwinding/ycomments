@@ -47,6 +47,7 @@ html, body {
   left: 0px;
   position: relative;
   font-size: 9pt;
+  overflow: hidden;
 }
 
 .ycomments-content {

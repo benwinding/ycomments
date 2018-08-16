@@ -269,11 +269,6 @@ html, body {
         `
         doc.head.appendChild(cssTag)
 
-        // var cssLink = document.createElement("link");
-        // cssLink.href = "ycomments.css"; 
-        // cssLink.rel = "stylesheet"; 
-        // cssLink.type = "text/css"; 
-        // doc.head.appendChild(cssLink)
         let author = comments.results.author;
         let authorLink = "https://news.ycombinator.com/user?id="+author;
         let title = comments.results.title;

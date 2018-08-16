@@ -50,10 +50,11 @@ function makeCommentsNode(comments) {
   return commentsRootDiv;
 }
 
+const isDev = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production'
+console.log('isDev:' + isDev)
+
 const cssTxt = require('./main.css')
 function getCssStyleElement() {
-  const isDev = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production'
-  console.log('isDev:' + isDev)
   let tag;
   if (isDev) {
     tag = document.createElement('link');
@@ -64,6 +65,19 @@ function getCssStyleElement() {
     tag = document.createElement('style');
     tag.innerHTML = cssTxt;
   }
+  return tag;
+}
+
+const svgIcon = require('./icon-white.svg')
+function getSvgElement() {
+  let tag;
+  tag = document.createElement('div');
+  tag.setAttribute('class', 'icon');
+  let link = document.createElement('a');
+  link.href = 'https://ycomments.benwinding.com/';  
+  link.target = '_blank';
+  link.innerHTML = svgIcon;
+  tag.appendChild(link);
   return tag;
 }
 
@@ -89,14 +103,18 @@ function makeIframe(itemObj) {
     let titleLink = "https://news.ycombinator.com/item?id=" + id;
 
     const headerHtml = `
-      <div class="ycomments-header">
-        <h1>Source: <a href="${titleLink}" target="_blank">[&#x2197;] ${title}</a></h1>
-        <p>by <a href="${authorLink}" target="_blank">${author}</a>
-        <a href="${titleLink}" target="_blank">${itemObj.comments.length} comments</a>
-        </p>
-      </div>
+    <div>
+      <h1 id="title">Source: <a href="${titleLink}" target="_blank">[&#x2197;] ${title}</a></h1>
+      <p id="subtitle">by <a href="${authorLink}" target="_blank">${author}</a>
+      <a href="${titleLink}" target="_blank">${itemObj.comments.length} comments</a>
+      </p>
+    </div>
     `;
-    doc.body.insertAdjacentHTML('afterbegin', headerHtml)
+    let headerDiv = document.createElement('div');
+    headerDiv.setAttribute('class', 'ycomments-header');
+    headerDiv.innerHTML = headerHtml;
+    headerDiv.insertAdjacentElement('afterbegin', getSvgElement())
+    doc.body.insertAdjacentElement('afterbegin', headerDiv)
     doc.close();
 
     iframe.style.WebkitTransition = 'opacity 1s';

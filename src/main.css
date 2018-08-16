@@ -19,19 +19,30 @@ html, body {
   padding-right: 10px;
 }
 
-.ycomments-header h1 a,
-.ycomments-header h1 {
+.ycomments-header .icon svg {
+  height: 35px;
+  width: auto;
+  margin-right: 5px;
+}
+
+.ycomments-header div {
+  width: fit-content;
+  display: inline-block;
+}
+
+.ycomments-header #title a,
+.ycomments-header #title {
   font-size: 12pt;
   color: black;
   margin-bottom: 6px;
 }
 
-.ycomments-header h1 a:visited {
+.ycomments-header #title a:visited {
   color: grey;
 }
 
-.ycomments-header p a,
-.ycomments-header p {
+.ycomments-header #subtitle a,
+.ycomments-header #subtitle {
   font-size: 10pt;
   color: grey;
   padding: 0;

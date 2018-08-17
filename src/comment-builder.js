@@ -2,7 +2,7 @@ function makeThread(comment, parentDiv) {
   // Create the comment structure
 
   let commentDiv = document.createElement('div');
-  commentDiv.setAttribute('class', 'ycomments-child')
+  commentDiv.setAttribute('class', 'rahn-child')
   let date = new Date(comment.created_at);
   let dateString = date.toLocaleDateString() + ' - ' + date.toLocaleTimeString();
   let commentText = comment.text;
@@ -12,13 +12,13 @@ function makeThread(comment, parentDiv) {
   let authorLink = "https://news.ycombinator.com/user?id=" + author;
 
   const commentHtml = `
-    <div class="ycomments-content">
-      <div class="ycomments-meta">
-        <a class="ycomments-author" href="${authorLink}" target="_blank">${author}</a>
+    <div class="rahn-content">
+      <div class="rahn-meta">
+        <a class="rahn-author" href="${authorLink}" target="_blank">${author}</a>
         <span>${dateString}</span>
-        <a class="ycomments-toggle" onclick="onClickToggle(this)" >[-]</a>
+        <a class="rahn-toggle" onclick="onClickToggle(this)" >[-]</a>
       </div>
-      <div class="ycomments-text">${commentText}</div>
+      <div class="rahn-text">${commentText}</div>
     </div>
   `;
   commentDiv.insertAdjacentHTML('beforeend', commentHtml);
@@ -31,7 +31,7 @@ function makeThread(comment, parentDiv) {
 
 function makeCommentsNode(comments) {
   let commentsRootDiv = document.createElement('div');
-  commentsRootDiv.setAttribute("class", "ycomments-root")
+  commentsRootDiv.setAttribute("class", "rahn-root")
   for (const comment of comments) {
     makeThread(comment, commentsRootDiv)
   }
@@ -76,7 +76,7 @@ function getSvgElement() {
   tag = document.createElement('div');
   tag.setAttribute('class', 'icon');
   let link = document.createElement('a');
-  link.href = 'https://ycomments.benwinding.com/';  
+  link.href = 'https://rahn.benwinding.com/';  
   link.target = '_blank';
   link.innerHTML = svgIcon;
   tag.appendChild(link);
@@ -113,7 +113,7 @@ function makeIframe(itemObj) {
     </div>
     `;
     let headerDiv = document.createElement('div');
-    headerDiv.setAttribute('class', 'ycomments-header');
+    headerDiv.setAttribute('class', 'rahn-header');
     headerDiv.innerHTML = headerHtml;
     headerDiv.insertAdjacentElement('afterbegin', getSvgElement())
     doc.body.insertAdjacentElement('afterbegin', headerDiv)
@@ -126,7 +126,7 @@ function makeIframe(itemObj) {
   }
 
   iframe.style.opacity = '0';
-  iframe.setAttribute('name', 'ycomments');
+  iframe.setAttribute('name', 'rahn');
   iframe.setAttribute('width', '100%');
   iframe.setAttribute('frameBorder', '0');
   // iframe.setAttribute('scrolling', 'no');
@@ -157,7 +157,7 @@ function makeIframeError() {
     </div>
     `;
     let headerDiv = document.createElement('div');
-    headerDiv.setAttribute('class', 'ycomments-header');
+    headerDiv.setAttribute('class', 'rahn-header');
     headerDiv.innerHTML = headerHtml;
     headerDiv.insertAdjacentElement('afterbegin', getSvgElement())
     doc.body.insertAdjacentElement('afterbegin', headerDiv)
@@ -170,7 +170,7 @@ function makeIframeError() {
   }
 
   iframe.style.opacity = '0';
-  iframe.setAttribute('name', 'ycomments');
+  iframe.setAttribute('name', 'rahn');
   iframe.setAttribute('width', '100%');
   iframe.setAttribute('frameBorder', '0');
   iframe.setAttribute('scrolling', 'no');

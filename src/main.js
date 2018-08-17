@@ -29,20 +29,20 @@ function getCommentObj(itemValue) {
 }
 
 function addIframeToPage(commentsObj) {
-  let ycommentsRoot = document.querySelector('div[comments]');
+  let rahnRoot = document.querySelector('div[comments]');
   let iframe = builder.makeIframe(commentsObj);
-  ycommentsRoot.appendChild(iframe);
+  rahnRoot.appendChild(iframe);
 }
 
 function addIframeErrorToPage() {
-  let ycommentsRoot = document.querySelector('div[comments]');
+  let rahnRoot = document.querySelector('div[comments]');
   let iframe = builder.makeIframeError();
-  ycommentsRoot.appendChild(iframe);
+  rahnRoot.appendChild(iframe);
 }
 
 function onPageLoad() {
-  let ycommentsRoot = document.querySelector('div[comments]');
-  let itemValue = ycommentsRoot.getAttribute('comments');
+  let rahnRoot = document.querySelector('div[comments]');
+  let itemValue = rahnRoot.getAttribute('comments');
 
   getCommentObj(itemValue)
     .then((commentsObj) => addIframeToPage(commentsObj))

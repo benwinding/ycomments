@@ -1,5 +1,6 @@
 {
-  "name": "YComments",
+  "name": "Rahn",
+  "description": "A system to obtain discussions from Reddit And Hacker News",
   "scripts": {
     "build": "webpack",
     "build-prod": "NODE_ENV=production webpack",

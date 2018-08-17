@@ -10,7 +10,7 @@
   overflow-x: hidden;
 }
 
-.ycomments-root {
+.rahn-root {
   width: 100%;
   margin-left: -10px;
 }
@@ -21,39 +21,39 @@ div.error #title a {
   padding-top: 0px;
 }
 
-.ycomments-header {
+.rahn-header {
   width: 100%;
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: 10px;
 }
 
-.ycomments-header .icon svg {
+.rahn-header .icon svg {
   height: 35px;
   width: auto;
   margin-right: 5px;
 }
 
-.ycomments-header div {
+.rahn-header div {
   width: fit-content;
   display: inline-block;
   vertical-align: top;
 }
 
-.ycomments-header #title a,
-.ycomments-header #title {
+.rahn-header #title a,
+.rahn-header #title {
   font-size: 12pt;
   color: black;
   margin-bottom: 2px;
   margin-top: 0px;
 }
 
-.ycomments-header #title a:visited {
+.rahn-header #title a:visited {
   color: grey;
 }
 
-.ycomments-header #subtitle a,
-.ycomments-header #subtitle {
+.rahn-header #subtitle a,
+.rahn-header #subtitle {
   font-size: 10pt;
   color: grey;
   padding: 0;
@@ -62,7 +62,7 @@ div.error #title a {
   margin-bottom: 0;
 }
 
-.ycomments-child {
+.rahn-child {
   margin-left: 10px;
   padding: 10px;
   padding-top: 5px;
@@ -74,28 +74,28 @@ div.error #title a {
   padding-bottom: 0px;
 }
 
-.ycomments-content {
+.rahn-content {
   margin-bottom: -10px;
 }
 
-.ycomments-content a:hover {
+.rahn-content a:hover {
   text-decoration: underline;
   cursor: pointer;
 }
 
-.ycomments-meta, .ycomments-author {
+.rahn-meta, .rahn-author {
   color: grey;
 }
 
-.ycomments-author {
+.rahn-author {
   margin-right: 7px;
 }
 
-.ycomments-child p {
+.rahn-child p {
   margin-top: 5px;
 }
 
-.ycomments-child pre {
+.rahn-child pre {
   color: black;
   overflow-x: scroll;
   background-color: #f7f7f7;

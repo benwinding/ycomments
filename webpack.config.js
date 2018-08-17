@@ -45,7 +45,7 @@ if (!devMode) {
 module.exports = {
   entry: './src/main.js',
   output: {
-    filename: './ycomments.min.js'
+    filename: './rahn.min.js'
   },  
   devtool: devMode ? 'source-map' : false,
   plugins: plugins,

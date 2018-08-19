@@ -1,5 +1,6 @@
 {
   "name": "ycomments",
+  "version": "0.0.2",
   "description": "Embedded Hacker News (YCombinator) discussions",
   "scripts": {
     "clean": "rm -rf dist",

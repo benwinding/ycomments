@@ -1,5 +1,5 @@
 {
-  "name": "YComments",
+  "name": "ycomments",
   "description": "Embedded Hacker News (YCombinator) discussions",
   "scripts": {
     "clean": "rm -rf dist",

@@ -1,11 +1,12 @@
 {
   "name": "YComments",
+  "description": "Embedded Hacker News (YCombinator) discussions",
   "scripts": {
-    "build": "webpack",
-    "build-prod": "NODE_ENV=production webpack",
+    "clean": "rm -rf dist",
+    "build": "yarn clean && webpack",
+    "build-prod": "yarn clean && NODE_ENV=production webpack",
     "watch": "webpack -w",
-    "watch-prod": "NODE_ENV=production webpack -w",
-    "clean": "rm -rf dist"
+    "watch-prod": "NODE_ENV=production webpack -w"
   },
   "dependencies": {
     "css-loader": "^1.0.0",

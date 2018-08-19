@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require("webpack");
 
 const devMode = process.env.NODE_ENV !== 'production'
+const version = process.env.npm_package_version;
 console.log("devMode:", devMode)
 
 const rulesDev = [
@@ -45,7 +46,7 @@ if (!devMode) {
 module.exports = {
   entry: './src/main.js',
   output: {
-    filename: './rahn.min.js'
+    filename: `./rahn-${version}.min.js`
   },  
   devtool: devMode ? 'source-map' : false,
   plugins: plugins,

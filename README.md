@@ -3,19 +3,23 @@
 A tiny script to embed discussions from YCombinator's Hacker News.
 
 ## Usage
-
+Put this in the `<head>` tag
 ``` html
-// Put this in the head
 <script src="https://cdn.rawgit.com/benwinding/ycomments/39084c44/dist/ycomments.min.js"></script>
-
-// Put this somewhere in the body
-
-// Auto discussions based on browser URL
+```
+Put one of these in the `<body>` tag
+### Auto Lookup (Page URL)
+``` html
 <div comments="auto"></div>
+```
 
-// Or a specific discussion
+### Specific Discussion
+``` html
 <div comments="16582136"></div>
 ```
+
+## Output
+![https://i.imgur.com/yGCb9yf.png](https://i.imgur.com/yGCb9yf.png)
 
 ## Features
 

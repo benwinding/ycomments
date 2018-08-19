@@ -62,7 +62,10 @@ function fetchHnComments(commentsId) {
   }
 
   const apiUrl = `https://hn.algolia.com/api/v1/items/${commentsId}`
-  return r.getUrlJson(apiUrl)
+  return r.getUrl({
+    url: apiUrl,
+    json: true,
+  })
     .then((data) => {
       const sorted = data.children.sort(sortComments);
       return {

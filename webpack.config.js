@@ -46,7 +46,8 @@ if (!devMode) {
 module.exports = {
   entry: './src/main.js',
   output: {
-    filename: `./rahn-${version}.min.js`
+    filename: `./rahn-${version}.min.js`,
+    filename: `./rahn.min.js`,
   },  
   devtool: devMode ? 'source-map' : false,
   plugins: plugins,

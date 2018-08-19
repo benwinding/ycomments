@@ -59,14 +59,14 @@ function makeThread(comment, parentDiv) {
   }
 }
 
-function makeCommentsNode(comments) {
+function makeCommentsNode(post: Post) {
   let commentsRootDiv = document.createElement('div');
   commentsRootDiv.setAttribute("class", "rahn-root")
-  for (const comment of comments) {
+  for (const comment of post.comments) {
     makeThread(comment, commentsRootDiv)
   }
 
-  function onClickToggle(e) {
+  function onClickToggle(e: any) {
     const commentDiv = e.parentElement.parentElement.parentElement;
     if (e.innerText == '[-]') {
       commentDiv.style.height = '15px';
@@ -82,30 +82,32 @@ function makeCommentsNode(comments) {
   return commentsRootDiv;
 }
 
-function makeIframe(source, comments, meta) {
+function makeIframe(post: Post) {
   let iframe = document.createElement('iframe');
 
   function onIframeLoaded() {
     var doc = iframe.contentWindow.document;
     doc.open();
-    const node = makeCommentsNode(comments);
+    const node = makeCommentsNode(Post);
     // write comments, creates html structure
     doc.write(node.outerHTML);
     // add stylesheet to iframe head
     doc.head.appendChild(getCssStyleElement())
 
     // doc.head.appendChild(cssLink)
-    let author = meta.author;
-    let authorLink = meta.authorLink;
-    let title = meta.title;
-    let titleLink = meta.titleLink;
-    let id = meta.id;
+    let author = post.author;
+    let authorLink = post.authorLink();
+    let title = post.title;
+    let titleLink = post.titleLink();
+    let id = post.id;
+    let comments = post.comments;
+    let source = post.source;
 
     const headerHtml = `
     <div>
       <h1 id="title">${source} Discussion: <a href="${titleLink}" target="_blank">[&#x2197;] ${title}</a></h1>
       <p id="subtitle">by <a href="${authorLink}" target="_blank">${author}</a>
-      <a href="${titleLink}" target="_blank">${itemObj.comments.length} comments</a>
+      <a href="${titleLink}" target="_blank">${comments.length} comments</a>
       </p>
     </div>
     `;
@@ -116,8 +118,8 @@ function makeIframe(source, comments, meta) {
     doc.body.insertAdjacentElement('afterbegin', headerDiv)
     doc.close();
 
-    iframe.style.WebkitTransition = 'opacity 1s';
-    iframe.style.MozTransition = 'opacity 1s';
+    // iframe.style.WebkitTransition = 'opacity 1s';
+    // iframe.style.MozTransition = 'opacity 1s';
     iframe.style.height = '800px';//doc.body.scrollHeight + 'px';
     iframe.style.opacity = '1';
   }
@@ -131,7 +133,7 @@ function makeIframe(source, comments, meta) {
   return iframe;
 }
 
-function makeIframeError(source, submitLink) {
+function makeIframeError(source: string, submitLink: string) {
   let iframe = document.createElement('iframe');
 
   function onIframeLoaded() {
@@ -149,7 +151,7 @@ function makeIframeError(source, submitLink) {
     const headerHtml = `
     <div class="error">
       <p id="subtitle">No discussion found on ${source}</p>
-      <p id="subtitle"><a href="${submitlink}" target="_blank">Click here start one!</p>
+      <p id="subtitle"><a href="${submitLink}" target="_blank">Click here start one!</p>
     </div>
     `;
     let headerDiv = document.createElement('div');
@@ -159,8 +161,8 @@ function makeIframeError(source, submitLink) {
     doc.body.insertAdjacentElement('afterbegin', headerDiv)
     doc.close();
 
-    iframe.style.WebkitTransition = 'opacity 1s';
-    iframe.style.MozTransition = 'opacity 1s';
+    // iframe.style.WebkitTransition = 'opacity 1s';
+    // iframe.style.MozTransition = 'opacity 1s';
     iframe.style.height = '50px';
     iframe.style.opacity = '1';
   }
@@ -174,7 +176,7 @@ function makeIframeError(source, submitLink) {
   return iframe;
 }
 
-module.exports = {
-  makeIframe: makeIframe,
-  makeIframeError: makeIframeError,
+export {
+  makeIframe,
+  makeIframeError,
 }

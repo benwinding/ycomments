@@ -25,8 +25,8 @@ function findComments(src, tagSelector) {
   }
 
   return getCommentsPromise(src, tag)
-    .then((commentObj) => { 
-      const iframe = src.getCommentsIframe(commentObj);
+    .then((post) => { 
+      const iframe = src.getCommentsIframe(post);
       tag.appendChild(iframe);
     })
     .catch((err) => { 

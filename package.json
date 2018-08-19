@@ -1,6 +1,7 @@
 {
-  "name": "Rahn",
+  "name": "rahn",
   "description": "A system to obtain discussions from Reddit And Hacker News",
+  "version": "0.0.1",
   "scripts": {
     "build": "webpack",
     "build-prod": "NODE_ENV=production webpack",
@@ -9,12 +10,14 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "css-loader": "^1.0.0",
     "ignore-loader": "^0.1.2",
     "mini-css-extract-plugin": "^0.4.1",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.22.1",
     "svg-inline-loader": "^0.8.0",
+    "to-string-loader": "^1.1.5",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
     "webpack-livereload-plugin": "^2.1.1"

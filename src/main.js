@@ -1,55 +1,44 @@
-require('./main.css');
-const apis = require('./apis.js');
-const builder = require('./comment-builder.js');
+// const reddit = require('./sources/reddit.class.js');
+const hn = require('./sources/hn.class.js');
 
-function getItemId(itemValue) {
-  if (itemValue == 'auto') {
+function getCommentsPromise(src, tag) {
+  if (tag.getAttribute('auto') == 'true') {
     let thisUrl = window.location.href;
-    return apis.checkHnForUrl(thisUrl)
-      .then((res) => {
-        return res.id;
-      })
+    return src.check(thisUrl)
+      .then((sourceId) => src.fetchComments(sourceId));
   }
-  else {
-    return Promise.resolve(itemValue);
+  const comments = tag.getAttribute('comments');
+  if (comments != null) {
+    return src.fetchComments(comments);
   }
-}
-
-function getCommentObj(itemValue) {
-  const isDev = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production'
-
-  if (isDev) {
-    const cssTxt = require('./sample.json')
-    return Promise.resolve(cssTxt);
-  }
-  else {
-    return getItemId(itemValue)
-      .then((commentsId) => apis.fetchHnComments(commentsId))
+  const subreddit = tag.getAttribute('subreddit');
+  if (subreddit != null) {
+    return src.fetchComments(subreddit);
   }
 }
 
-function addIframeToPage(commentsObj) {
-  let rahnRoot = document.querySelector('div[comments]');
-  let iframe = builder.makeIframe(commentsObj);
-  rahnRoot.appendChild(iframe);
-}
+function findComments(src, tagSelector) {
+  const tag = document.querySelector(tagSelector);
+  if (tag == null) {
+    console.error('No tag found');
+    return;
+  }
 
-function addIframeErrorToPage() {
-  let rahnRoot = document.querySelector('div[comments]');
-  let iframe = builder.makeIframeError();
-  rahnRoot.appendChild(iframe);
+  return getCommentsPromise(src, tag)
+    .then((commentObj) => { 
+      const iframe = src.getCommentsIframe(commentObj);
+      tag.appendChild(iframe);
+    })
+    .catch((err) => { 
+      console.error('Error:', err);
+      const iframe = src.getErrorIframe();
+      tag.appendChild(iframe);
+    })
 }
 
 function onPageLoad() {
-  let rahnRoot = document.querySelector('div[comments]');
-  let itemValue = rahnRoot.getAttribute('comments');
-
-  getCommentObj(itemValue)
-    .then((commentsObj) => addIframeToPage(commentsObj))
-    .catch((err) => {
-      addIframeErrorToPage()
-      console.error(err);
-    })
+  findComments(hn, 'div[from=hn]')
+  // findComments(reddit, 'div[from=reddit]')
 }
 
 window.addEventListener('load', onPageLoad)

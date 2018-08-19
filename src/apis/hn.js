@@ -1,38 +1,9 @@
-// API stuff
-function getUrlJson(url) {
-  return new Promise((resolve, reject) => {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState != 4)
-        return;
-      if (this.status != 200)
-        reject(this.statusText)
-      var data = JSON.parse(this.responseText);
-      resolve(data)
-    };
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send(null);
-  })
-}
-
-function stripUrl(urlString) {
-  const url = new URL(urlString);
-  return url.host + url.pathname + url.search
-}
-
-function isMatchTwoUrls(url1, url2) {
-  return (stripUrl(url1) == stripUrl(url2));
-}
+const r = require('./requests.js')
 
 function checkHnForUrl(urlString) {
   const location = new URL(urlString);
-  const inithost = location.host;
-  const omitlist = ['news.ycombinator.com'];
-  if (omitlist.indexOf(inithost) >= 0) {
-    return Promise.reject('Hacker News API: Not going to search domain: Hacker News');
-  }
   let initurl = location.href;
-  let search_url = encodeURIComponent(stripUrl(initurl))
+  let search_url = encodeURIComponent(r.stripUrl(initurl))
 
   let requestUrl = "https://hn.algolia.com/api/v1/search?query=" + search_url + "&restrictSearchableAttributes=url"
   var xhttp = new XMLHttpRequest();
@@ -45,7 +16,7 @@ function checkHnForUrl(urlString) {
     let num_of_comments = 0;
     let hitMatch
     for (let hit of allhits) {
-      if (isMatchTwoUrls(hit["url"], initurl) && hit["num_comments"] >= num_of_comments) {
+      if (r.isMatchTwoUrls(hit["url"], initurl) && hit["num_comments"] >= num_of_comments) {
         num_of_comments = hit["num_comments"];
         hitMatch = hit;
       }
@@ -67,12 +38,12 @@ function checkHnForUrl(urlString) {
     }
   }
 
-  return getUrlJson(requestUrl)
-  .then((data) => {
-    return processJsonResponse(data)
-  }).catch((err) => {
-    return Promise.reject(err);
+  return r.getUrl({
+    url: requestUrl,
+    json: true,
   })
+    .then((data) => processJsonResponse(data))
+    .catch((err) => Promise.reject(err))
 }
 
 function fetchHnComments(commentsId) {
@@ -91,7 +62,7 @@ function fetchHnComments(commentsId) {
   }
 
   const apiUrl = `https://hn.algolia.com/api/v1/items/${commentsId}`
-  return getUrlJson(apiUrl)
+  return r.getUrlJson(apiUrl)
     .then((data) => {
       const sorted = data.children.sort(sortComments);
       return {
@@ -107,8 +78,7 @@ function fetchHnComments(commentsId) {
     })
 }
 
-
 module.exports = {
   checkHnForUrl: checkHnForUrl,
-  fetchHnComments: fetchHnComments
+  fetchHnComments: fetchHnComments,
 }

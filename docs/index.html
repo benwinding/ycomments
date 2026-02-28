@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>YComments</title>
+    <meta charSet="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Embedded Hacker News Discussions!">
+    <meta property="og:image" content="">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/images/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/images/favicons/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/color.css">
+
+    <style>
+    </style>
+  </head>
+
+  <body class="font-neutral">
+    <div class="yellow-black">
+      <header class="header">
+        <div class="container-lrg">
+          <div class="flex col-12 spread">
+            <a class="logo logo">
+              <img src="images/icon-white.svg" alt="YCommentsCompany Logo">
+            </a>
+            <h1 class="heading-med primary-color">YComments</h1>
+            <a href="mailto:hello@benwinding.com" class="nav-link secondary-color mr0">Contact</a>
+          </div>
+        </div>
+      </header>
+      <section class="section">
+        <div class="container mb40">
+          <div class="col-12 text-center">
+            <h1 class="heading-lrg primary-color">Embedded Hacker News Discussions!</h1>
+            <h2 class="subheading secondary-color mt20">Automatically retrieve the highest ranked post on news.ycombinator.com. And output the comments to a div tag.</h2>
+            <div class="mt40">
+              <a href="https://github.com/benwinding/ycomments" target="_blank" class="button mobile-text-center mt10 mobile-text-center accent-bg fill-white primary-color">
+                <svg width="25" height="24" viewBox="0 0 25 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M22.889 6.13a12.214 12.214 0 0 0-4.465-4.464C16.544.569 14.493.02 12.267.02S7.989.57 6.11 1.666A12.212 12.212 0 0 0 1.645 6.13C.548 8.01 0 10.062 0 12.287c0 2.673.78 5.077 2.34 7.212 1.56 2.135 3.575 3.612 6.045 4.432.288.053.5.016.64-.112a.625.625 0 0 0 .207-.479l-.008-.862c-.006-.544-.008-1.017-.008-1.422l-.368.064c-.234.043-.53.061-.886.056a6.754 6.754 0 0 1-1.11-.112 2.48 2.48 0 0 1-1.07-.479 2.027 2.027 0 0 1-.703-.982l-.16-.368a3.991 3.991 0 0 0-.503-.814c-.229-.298-.46-.5-.695-.607l-.111-.08a1.173 1.173 0 0 1-.208-.192.876.876 0 0 1-.144-.223c-.032-.075-.005-.136.08-.184.085-.048.24-.072.463-.072l.32.048c.213.043.476.17.79.383.314.213.573.49.775.83.245.437.54.77.886.999.346.229.695.343 1.047.343.35 0 .654-.026.91-.08.255-.053.495-.133.719-.24.096-.713.356-1.261.782-1.644a10.937 10.937 0 0 1-1.637-.288 6.519 6.519 0 0 1-1.501-.623 4.3 4.3 0 0 1-1.286-1.07c-.34-.426-.62-.985-.838-1.677-.219-.693-.328-1.491-.328-2.396 0-1.289.42-2.385 1.262-3.29-.394-.97-.357-2.056.112-3.259.309-.096.767-.024 1.373.216.607.24 1.052.445 1.334.615.282.17.509.314.68.431.99-.277 2.012-.415 3.066-.415 1.054 0 2.076.138 3.067.415l.607-.383c.415-.256.905-.49 1.469-.703.564-.213.996-.272 1.294-.176.48 1.204.522 2.29.128 3.259.84.905 1.262 2.002 1.262 3.29 0 .905-.11 1.706-.328 2.404-.218.697-.5 1.256-.846 1.677-.346.42-.778.775-1.294 1.062a6.531 6.531 0 0 1-1.501.623c-.485.128-1.03.224-1.638.288.554.479.83 1.235.83 2.268v3.37c0 .191.067.351.2.479.134.127.344.165.631.111 2.471-.82 4.486-2.297 6.046-4.432 1.56-2.135 2.34-4.538 2.34-7.211 0-2.225-.55-4.278-1.645-6.157z"></path>
+                </svg>
+                <span> Get Started Now </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="container mt75">
+          <div class="col-12">
+            <div class="codeblock">
+              <pre><code class="hljs dockerfile"><table class="hljs-ln"><tbody><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="1"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">// 1. Add the javascript file to your header</span></div></td></tr><tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="2"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line">&lt;script src=<span class="hljs-string">"https://cdn.rawgit.com/benwinding/ycomments/b7310c55/dist/ycomments.min.js"</span> &gt;&lt;/script&gt;</div></td></tr>
+                <tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line"> </div></td></tr>
+
+                <tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="4"></div></td>
+                <td class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">// 2. Add the div tag where you want the comments to end up.</span></div></td></tr>
+
+<tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="3"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line"> </div></td></tr>
+                <tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="4"></div></td>
+                <td class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">// Automatic lookup based on page URL.</span></div></td></tr>
+                <tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="5"></div></td>
+                <td class="hljs-ln-code"><div class="hljs-ln-line">&lt;div <span class="hljs-keyword">comments</span>=<span class="hljs-string">"auto"</span>&gt;&lt;/div&gt;</div></td></tr>
+
+                <tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="4"></div></td>
+                <td class="hljs-ln-code"><div class="hljs-ln-line"><span class="hljs-comment">// Manual lookup based on post id.</span></div></td></tr>
+                <tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="5"></div></td>
+                <td class="hljs-ln-code"><div class="hljs-ln-line">&lt;div <span class="hljs-keyword">comments</span>=<span class="hljs-string">"16582136"</span>&gt;&lt;/div&gt;</div></td></tr>
+
+                <tr><td class="hljs-ln-numbers"><div class="hljs-ln-line hljs-ln-n" data-line-number="6"></div></td><td class="hljs-ln-code"><div class="hljs-ln-line"> </div></td>
+                </tr>
+
+
+              </tbody></table></code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <section id="feature-1" class="section yellow-white" sitemeta="[object Object]" activepage="Landing">
+      <div class="container-lrg flex">
+        <div class="col-4 text-center flex flex-column center-horizontal">
+          <i class="icon mobile-center-icon secondary-bg">
+            <svg class="svg-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+              <path d="M16 3.5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1 0-1h5a.5.5 0 0 1 .5.5zm5-1v20a2.503 2.503 0 0 1-2.5 2.5h-11A2.503 2.503 0 0 1 5 22.5v-20A2.503 2.503 0 0 1 7.5 0h11A2.503 2.503 0 0 1 21 2.5zm-6 20a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm5-20A1.502 1.502 0 0 0 18.5 1h-11A1.502 1.502 0 0 0 6 2.5V20h14z"></path>
+            </svg>
+          </i>
+          <h3 class="bold primary-color">Responsive</h3>
+          <p class="paragraph secondary-color">The comments will adjust to what ever container they're in.</p>
+        </div>
+        <div class="col-4 text-center flex flex-column center-horizontal">
+          <i class="icon mobile-center-icon secondary-bg">
+            <svg class="svg-fill" viewBox="0 0 23 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21.003 7.71c-.147.001-.293.017-.436.049-2.739.603-6.347 1.011-6.347 1.011a1.002 1.002 0 0 1-1.199-.98V2.08A2.082 2.082 0 0 0 10.936 0a2.147 2.147 0 0 0-2.118 1.736C8.266 4.64 6.608 8.77 4.829 9.779A1.494 1.494 0 0 0 3.522 9h-2a1.5 1.5 0 0 0-1.5 1.5v12a1.5 1.5 0 0 0 1.5 1.5h2a1.5 1.5 0 0 0 1.5-1.5v-.992l3 1.492h10.76a3.004 3.004 0 0 0 2.928-2.315A55.778 55.778 0 0 0 23 9.791a2.01 2.01 0 0 0-1.997-2.08zM4.02 15.55L4 21l.021.01v1.49a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-12a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v5.05z"></path>
+            </svg>
+          </i>
+          <h3 class="bold primary-color">Automatic</h3>
+          <p class="paragraph secondary-color">The script can either fetch a specific item, or dynamically query based on the URL</p>
+        </div>
+        <div class="col-4 text-center flex flex-column center-horizontal">
+          <i class="icon mobile-center-icon secondary-bg">
+            <svg class="svg-fill" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+              <path d="M12.5.133a12.5 12.5 0 1 0 12.5 12.5A12.5 12.5 0 0 0 12.5.133zm-4.5 11a1 1 0 1 1 1 1 1 1 0 0 1-1-1zm7.352 5.356a4.083 4.083 0 0 1-2.852 1.046 4.083 4.083 0 0 1-2.852-1.046.5.5 0 0 1 .704-.711 3.426 3.426 0 0 0 4.296 0 .5.5 0 1 1 .703.71zM16 12.133a1 1 0 1 1 1-1 1 1 0 0 1-1 1z"></path>
+            </svg>
+          </i>
+          <h3 class="bold primary-color">No Tracking!</h3>
+          <p class="paragraph secondary-color">The script talks directly to the open source Hacker News public api from the users browser.</p>
+        </div>
+      </div>
+    </section>
+    <section id="faq-2" class="section yellow-white" sitemeta="[object Object]" activepage="Landing">
+      <div class="container">
+        <div class="col-12 text-center">
+          <h3 class="heading primary-color">
+            FAQ
+          </h3>
+          <p class="subheading secondary-color mt20">Some questions you might have...</p>
+        </div>
+      </div>
+      <div class="container">
+        <div class="col-12 mt40">
+          <div class="faq pad20">
+            <b class="bold primary-color">
+              Why did you make this?
+            </b>
+            <p class="paragraph secondary-color">
+              I wanted to see if it was possible to dynamically show the related discussion on the site it was on... pretty meta
+            </p>
+          </div>
+          <div class="faq pad20">
+            <b class="bold primary-color">
+              How does this work, in "manual mode"?
+            </b>
+            <p class="paragraph secondary-color">
+              It queries the Hacker News api based on the id provided in the div tag.
+            </p>
+          </div>
+          <div class="faq pad20">
+            <b class="bold primary-color">
+              How does this work, in "auto mode"?
+            </b>
+            <p class="paragraph secondary-color">
+              It queries the Hacker News API directly using the current URL of the page it's on.
+            </p>
+          </div>
+          <div class="pad20">
+            <script src="https://cdn.rawgit.com/benwinding/ycomments/b7310c55/dist/ycomments.min.js"></script>
+            <div comments="auto" ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer id="footer-3" class="section text-center yellow-white" sitemeta="[object Object]" activepage="Landing">
+      <div class="container col-12">
+        <div>
+          <a href="mailto:hello@benwinding.com" class="socialicons accent-bg email"></a>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+
+</html>

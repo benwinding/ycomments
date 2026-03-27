@@ -5,7 +5,7 @@ A tiny script to embed discussions from YCombinator's Hacker News.
 ## Usage
 Put this in the `<head>` tag
 ``` html
-<script src="https://cdn.rawgit.com/benwinding/ycomments/39084c44/dist/ycomments.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/benwinding/ycomments@39084c44/dist/ycomments.min.js"></script>
 ```
 Put one of these in the `<body>` tag
 ### Auto Lookup (Page URL)
